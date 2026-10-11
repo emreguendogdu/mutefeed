@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "version": 2026101101,
+ "version": 2026101102,
  "sites": [
   {
    "id": "youtube",
@@ -23,9 +23,11 @@
       "grid-shelf-view-model:has(ytm-shorts-lockup-view-model)",
       "yt-lockup-view-model:has(a[href^=\"/shorts/\"])",
       "ytd-guide-entry-renderer:has(a[title=\"Shorts\"])",
-      "ytd-mini-guide-entry-renderer[aria-label=\"Shorts\"]",
-      "ytd-mini-guide-entry-renderer:has(a[title=\"Shorts\"])",
+      "ytd-guide-entry-renderer:has(a[title=\"ショート\"])",
+      "ytd-guide-section-renderer:first-child ytd-guide-entry-renderer:has(> a#endpoint:not([href]))",
+      "ytd-mini-guide-entry-renderer:has(a[href^=\"/shorts\"])",
       "yt-tab-shape[tab-title=\"Shorts\"]",
+      "yt-tab-shape[tab-title=\"ショート\"]",
       "ytm-reel-shelf-renderer",
       "ytm-rich-section-renderer:has(ytm-shorts-lockup-view-model)",
       "ytm-pivot-bar-item-renderer:has(.pivot-shorts)",
@@ -110,7 +112,6 @@
       "ytd-guide-section-renderer:has(a[href=\"/channel/UC4R8DWoMoI7CAwX8_LjQHig\"]):not(:has(a[href^=\"/@\"]))",
       "ytd-guide-section-renderer:has(a[href=\"/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ\"]):not(:has(a[href^=\"/@\"]))",
       ".search-bar-entry-point-more-drawer-button",
-      "[role=\"button\"][aria-label=\"Explore Menu\"]",
       "ytm-chip-cloud-chip-renderer[chip-style=\"STYLE_EXPLORE_LAUNCHER_CHIP\"]"
      ]
     },
@@ -170,7 +171,7 @@
      "default": true,
      "css": [
       "a[href=\"/reels/\"]",
-      "html[data-mf-path=\"/\"] article:has(a[href*=\"/reel/\"])"
+      "html[data-mf-path=\"/\"] article:has(a[href*=\"/reel/\"], a[href^=\"/reels/\"]:not([href=\"/reels/\"]):not([href^=\"/reels/audio/\"])) > *"
      ],
      "redirects": [
       {
@@ -198,7 +199,8 @@
      "name": "Stories",
      "default": false,
      "css": [
-      "html[data-mf-path=\"/\"] main ul:has(> li button[aria-label*=\"tory\"])",
+      "html[data-mf-path=\"/\"] main div[role=\"menu\"]:has(canvas)",
+      "html[data-mf-path=\"/\"] main ul:has(> li canvas)",
       "section > main div.xw7yly9 > div.xmnaoh6"
      ]
     },
@@ -215,8 +217,13 @@
      "id": "suggested",
      "name": "suggested posts",
      "default": true,
-     "css": [
-      "html[data-mf-path=\"/\"] div:has(a[href*=\"variant=past_posts\"]) ~ article"
+     "css": [],
+     "redirects": [
+      {
+       "match": "^/(\\?(?!(.*&)?variant=(?!home(&|$))).*)?$",
+       "to": "/?variant=following",
+       "query": true
+      }
      ]
     },
     {
@@ -224,7 +231,7 @@
      "name": "suggested accounts",
      "default": true,
      "css": [
-      "div:has(> div > a[href=\"/explore/people/\"])",
+      "div:has(> div > a[href=\"/explore/people/\"]){position:absolute!important;left:-3000px!important;visibility:hidden!important}",
       "div:has(> div > a[href$=\"/related_profiles/\"])",
       "html[data-mf-path^=\"/explore/people\"] main"
      ]
@@ -265,6 +272,12 @@
      "css": [
       "[data-testid=\"sidebarColumn\"] section:has([data-testid=\"trend\"])",
       "section:has(div[aria-label=\"Timeline: Trending now\"])",
+      "section:has(div[aria-label=\"Zaman Akışı: Gündemdekiler\"])",
+      "section:has(div[aria-label=\"Cronología: Tendencias del momento\"])",
+      "section:has(div[aria-label=\"Timeline: Aktuelle Trends\"])",
+      "section:has(div[aria-label=\"Fil d'actualités : Tendance actuellement\"])",
+      "section:has(div[aria-label=\"Timeline: Assuntos do momento\"])",
+      "section:has(div[aria-label=\"タイムライン: 速報\"])",
       "div:has(> div[data-testid=\"news_sidebar\"])",
       "div:has(> div[data-testid^=\"news_sidebar_article_\"])"
      ]
@@ -281,11 +294,14 @@
     {
      "id": "foryou",
      "name": "For You tab",
-     "default": false,
+     "default": true,
      "css": [
       "html[data-mf-path=\"/home\"] div[role=\"tablist\"] > div:first-child:has(> [role=\"tab\"])",
       "html[data-mf-path=\"/home\"] main:has(div[role=\"tablist\"] > div:first-child > [role=\"tab\"][aria-selected=\"true\"]) [data-testid=\"primaryColumn\"] section[role=\"region\"]",
       "html[data-mf-path=\"/home\"] [data-testid=\"primaryColumn\"]:has(div[role=\"tablist\"] > div:first-child > [role=\"tab\"][aria-selected=\"true\"]) section[role=\"region\"]"
+     ],
+     "click": [
+      "html[data-mf-path=\"/home\"] :is([data-testid=\"primaryColumn\"], [data-testid=\"TopNavBar\"]) div[role=\"tablist\"]:has(> div:first-child > [role=\"tab\"][aria-selected=\"true\"]) > div:nth-child(2) > [role=\"tab\"]"
      ]
     },
     {
@@ -323,9 +339,7 @@
       "a[href$=\"/i/grok\"]",
       "[data-testid=\"GrokDrawer\"]",
       "button[data-testid=\"grokImgGen\"]",
-      "button[aria-label=\"Grok\"]",
-      "button[aria-label=\"Grok actions\"]",
-      "button[aria-label=\"Profile Summary\"]",
+      "button:has(svg[viewBox=\"0 0 33 32\"])",
       "[data-testid=\"tweet\"] [data-testid^=\"followups_\"]",
       "[data-testid=\"tweet\"] [data-testid^=\"followups_\"] + nav",
       "html[data-mf-path=\"/search\"] [data-testid=\"primaryColumn\"] > div > div:has(> [data-testid=\"followups_search\"])",
@@ -349,7 +363,8 @@
      "css": [
       "html[data-mf-path=\"/\"] [role=\"main\"] [role=\"feed\"]",
       "html[data-mf-path=\"/home.php\"] [role=\"main\"] [role=\"feed\"]",
-      "html[data-mf-path=\"/\"] div.x1hc1fzr.x1unhpq9.x6o7n8i"
+      "html[data-mf-path=\"/\"] div.x1hc1fzr.x1unhpq9.x6o7n8i",
+      "html:is([data-mf-path=\"/\"], [data-mf-path=\"/home.php\"]) [data-pull-to-refresh-action-id]"
      ]
     },
     {
@@ -360,8 +375,11 @@
       "a[href=\"/reel/\"]",
       "a[href^=\"/reel/?s=\"]",
       "[role=\"feed\"] > div:has(a[href*=\"/reel/\"])",
-      "[role=\"region\"][aria-label*=\"Reels\"]",
-      "div[aria-label=\"Reels\"]"
+      "[role=\"region\"]:has(a[href*=\"/reel/\"]):not(:has([role=\"feed\"]))",
+      "div[aria-label=\"Reels\"]",
+      "[data-type=\"vscroller\"]:not(.vscroller-snap) > :has([data-video-tracking*=\"FBShortsCreationAttachment\"])",
+      "[data-type=\"vscroller\"]:not(.vscroller-snap) > :has(:is([aria-label^=\"View reel video\"], [aria-label^=\"Ver reel\"], [aria-label^=\"Ver vídeo en reel\"], [aria-label^=\"Reel-Video von\"], [aria-label^=\"Afficher le reel\"], [aria-label*=\"Reels videosunu gör\"], [aria-label*=\"のリール動画を見ます\"]))",
+      "[data-log-comp-type=\"profile:tab_bar:reels\"]"
      ],
      "redirects": [
       {
@@ -376,8 +394,9 @@
      "default": false,
      "css": [
       "[data-pagelet=\"Stories\"]",
-      "[role=\"region\"][aria-label=\"Stories\"]",
-      "div.x193iq5w.xgmub6v.x1ceravr.x1v0nzow"
+      "[role=\"region\"]:has(a[href*=\"/stories/create\"])",
+      "div.x193iq5w.xgmub6v.x1ceravr.x1v0nzow",
+      "[data-type=\"vscroller\"] > :has(:is([aria-label=\"Create story\"], [aria-label=\"Story erstellen\"], [aria-label=\"Crear historia\"], [aria-label=\"Créer une story\"], [aria-label=\"Criar história\"], [aria-label=\"ストーリーズを作成\"]))"
      ]
     },
     {
@@ -390,7 +409,16 @@
       "[role=\"banner\"] a[href*=\"/watch/\"]",
       "[role=\"banner\"] a[href*=\"/video/\"]",
       "[role=\"navigation\"] li:has(a[href*=\"/watch/\"])",
-      "[role=\"navigation\"] a[href*=\"/watch/\"]"
+      "[role=\"navigation\"] a[href*=\"/watch/\"]",
+      "[role=\"tablist\"] > [aria-label^=\"videos\"]",
+      "[role=\"button\"]:has(> * > [aria-label=\"videos\"])"
+     ],
+     "redirects": [
+      {
+       "match": "^/(watch(/(live|shows|topic|explore|latest))?|video)/?(\\?(?!(.*&)?v=).*)?$",
+       "to": "/",
+       "query": true
+      }
      ]
     },
     {
@@ -401,7 +429,9 @@
       "[role=\"banner\"] li:has(a[href*=\"/marketplace/\"])",
       "[role=\"banner\"] a[href*=\"/marketplace/\"]",
       "[role=\"navigation\"] li:has(a[href*=\"/marketplace/\"])",
-      "[role=\"navigation\"] a[href*=\"/marketplace/\"]"
+      "[role=\"navigation\"] a[href*=\"/marketplace/\"]",
+      "[role=\"tablist\"] > [aria-label^=\"marketplace\"]",
+      "[role=\"button\"]:has(> * > [aria-label=\"marketplace\"])"
      ],
      "redirects": [
       {
@@ -424,7 +454,7 @@
      "name": "People you may know",
      "default": true,
      "css": [
-      "[role=\"feed\"] > div:has([aria-label=\"People you may know\" i])",
+      "[role=\"feed\"] > div:has(a[href*=\"/friends/\"][role=\"link\"])",
       "html:not([data-mf-path^=\"/friends\"]) [aria-label=\"People you may know\" i]",
       "[data-pagelet*=\"PeopleYouMayKnow\"]",
       "[data-pagelet*=\"PeopleYouMightKnow\"]"
@@ -465,7 +495,10 @@
       "a[href=\"/r/popular/\"]",
       "a[href=\"/r/all/\"]",
       "html[data-mf-path^=\"/r/popular\"] #siteTable",
-      "html[data-mf-path^=\"/r/all\"] #siteTable"
+      "html[data-mf-path^=\"/r/all\"] #siteTable",
+      "html:is([data-mf-path=\"/hot/\"], [data-mf-path=\"/new/\"], [data-mf-path=\"/rising/\"], [data-mf-path=\"/top/\"], [data-mf-path=\"/controversial/\"], [data-mf-path=\"/gilded/\"]) #siteTable",
+      "#sr-header-area a[href$=\"/r/popular/\"]",
+      "#sr-header-area a[href$=\"/r/all/\"]"
      ]
     },
     {
@@ -473,9 +506,9 @@
      "name": "trending searches",
      "default": true,
      "css": [
-      "#reddit-trending-searches-partial-container",
-      "[id*=\"trending-searches\"]",
-      "faceplate-partial[src*=\"trending\"]"
+      "reddit-search-large >>> #reddit-trending-searches-partial-container",
+      "reddit-search-small >>> #reddit-trending-searches-partial-container",
+      "#reddit-trending-searches-partial-container"
      ]
     },
     {
@@ -493,14 +526,13 @@
      "name": "related posts & communities",
      "default": true,
      "css": [
-      "aside[aria-label=\"Popular Communities\"]",
+      "aside:has(#popular-communities-list)",
       "#popular-communities-list",
       "#popular-communities-list-see-more",
       "aside:has(> pdp-right-rail)",
       "pdp-right-rail",
       "div[id^=\"t3_\"][id$=\"_related\"]",
-      "recent-posts",
-      ".side .spacer:has(.sidecontentbox)"
+      "recent-posts"
      ]
     }
    ]
@@ -519,7 +551,10 @@
      "css": [
       "html[data-mf-path=\"/feed/\"] .scaffold-finite-scroll",
       "html[data-mf-path=\"/feed\"] .scaffold-finite-scroll",
-      "html[data-mf-path=\"/feed/\"] div[componentkey^=\"container-update-list_mainFeed\"]"
+      "html[data-mf-path=\"/feed/\"] div[componentkey^=\"container-update-list_mainFeed\"]",
+      "html[data-mf-path=\"/feed/foryou/\"] div[componentkey^=\"container-update-list_mainFeed\"]",
+      "html[data-mf-path=\"/feed/network/\"] div[componentkey^=\"container-update-list_NetworkFeedListCollection\"]",
+      "html:is([data-mf-path=\"/feed/\"], [data-mf-path=\"/feed/foryou/\"], [data-mf-path=\"/feed/network/\"]) [data-testid=\"mainFeed\"]"
      ]
     },
     {
@@ -529,7 +564,8 @@
      "css": [
       "#feed-news-module",
       "div:has(> div > div[data-view-name=\"news-module\"])",
-      "aside[aria-label=\"LinkedIn News\"]"
+      "[componentkey=\"newsAndGamesCard\"]",
+      "aside div:has(a[href*=\"/news/story/\"]):not(:has(iframe, a[href*=\"/mynetwork/discover-hub/\"], a[href*=\"about.linkedin.com\"]))"
      ]
     },
     {
@@ -541,7 +577,11 @@
       "[data-view-name=\"feed-follows-module\"]",
       "[data-view-name=\"feed-pymk\"]",
       "[data-testid=\"mainFeed\"] [role=\"listitem\"]:has([data-view-name=\"feed-pymk\"])",
-      "html:not([data-mf-path^=\"/mynetwork\"]) [data-view-name*=\"pymk\"]"
+      "html:not([data-mf-path^=\"/mynetwork\"]) [data-view-name*=\"pymk\"]",
+      "html:not([data-mf-path^=\"/mynetwork\"]) div:has(> a[href*=\"/mynetwork/discover-hub/\"])",
+      "html:not([data-mf-path^=\"/mynetwork\"]) div:has(> div > a[href*=\"/mynetwork/discover-hub/\"])",
+      "aside div:has(a[href*=\"/mynetwork/discover-hub/\"]):not(:has(iframe, a[href*=\"/games/\"], a[href*=\"/news/story/\"], a[href*=\"about.linkedin.com\"]))",
+      "[data-testid=\"mainFeed\"] :is([role=\"listitem\"], [data-lazy-mount-id]):has(svg[id=\"trending-small\"]):not(:has(svg[id=\"overflow-web-ios-small\"]))"
      ]
     },
     {
@@ -553,7 +593,7 @@
       "[data-ad-banner]",
       ".scaffold-layout__aside .artdeco-card:has([data-ad-banner])",
       "iframe[componentkey$=\"_ad\"]",
-      "iframe[title=\"advertisement\" i]"
+      "iframe[width=\"300\"][height=\"250\"]"
      ]
     },
     {
@@ -566,7 +606,12 @@
       ".notification-badge__count",
       ".nav-item__badge-count",
       "[data-testid=\"primary-nav\"] [class*=\"notification-badge\"]",
-      ".msg-overlay-bubble-header__badge"
+      ".msg-overlay-bubble-header__badge",
+      "[data-testid=\"primary-nav\"] li > :is(a, button) > span > svg + span",
+      "header nav li > :is(a, button) > span > svg + span",
+      ".msg-overlay-bubble-header__unread-count",
+      "#interop-outlet >>> .msg-overlay-bubble-header__unread-count",
+      "#interop-outlet >>> .msg-overlay-bubble-header__badge-container"
      ]
     }
    ]
