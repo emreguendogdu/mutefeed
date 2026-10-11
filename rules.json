@@ -1,0 +1,575 @@
+{
+ "schema": 1,
+ "version": 2026101101,
+ "sites": [
+  {
+   "id": "youtube",
+   "name": "YouTube",
+   "hosts": [
+    "youtube.com"
+   ],
+   "features": [
+    {
+     "id": "shorts",
+     "name": "Shorts",
+     "default": true,
+     "css": [
+      "ytd-reel-shelf-renderer",
+      "ytd-rich-shelf-renderer[is-shorts]",
+      "ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts])",
+      "ytd-rich-item-renderer:has(a[href^=\"/shorts/\"])",
+      "ytd-video-renderer:has(a[href^=\"/shorts/\"])",
+      "ytd-video-renderer:has([overlay-style=\"SHORTS\"])",
+      "grid-shelf-view-model:has(ytm-shorts-lockup-view-model)",
+      "yt-lockup-view-model:has(a[href^=\"/shorts/\"])",
+      "ytd-guide-entry-renderer:has(a[title=\"Shorts\"])",
+      "ytd-mini-guide-entry-renderer[aria-label=\"Shorts\"]",
+      "ytd-mini-guide-entry-renderer:has(a[title=\"Shorts\"])",
+      "yt-tab-shape[tab-title=\"Shorts\"]",
+      "ytm-reel-shelf-renderer",
+      "ytm-rich-section-renderer:has(ytm-shorts-lockup-view-model)",
+      "ytm-pivot-bar-item-renderer:has(.pivot-shorts)",
+      "ytm-video-with-context-renderer:has(a[href^=\"/shorts/\"])",
+      "ytm-video-with-context-renderer:has([data-style=\"SHORTS\"])",
+      "ytm-rich-item-renderer:has(a[href^=\"/shorts/\"])"
+     ],
+     "redirects": [
+      {
+       "match": "^/shorts/([\\w-]+)",
+       "to": "/watch?v=$1"
+      }
+     ]
+    },
+    {
+     "id": "home",
+     "name": "home feed",
+     "default": false,
+     "css": [
+      "ytd-browse[page-subtype=\"home\"] ytd-rich-grid-renderer",
+      "ytd-browse[page-subtype=\"home\"] ytd-feed-filter-chip-bar-renderer",
+      "html[data-mf-path=\"/\"] ytm-browse ytm-rich-grid-renderer",
+      "html[data-mf-path=\"/\"] ytm-browse ytm-chip-cloud-renderer",
+      "html[data-mf-path=\"/\"] ytm-browse ytm-feed-filter-chip-bar-renderer"
+     ]
+    },
+    {
+     "id": "related",
+     "name": "Up next & related",
+     "default": false,
+     "css": [
+      "ytd-watch-next-secondary-results-renderer",
+      "ytd-watch-flexy #secondary #related",
+      "ytm-item-section-renderer[section-identifier=\"related-items\"]"
+     ]
+    },
+    {
+     "id": "comments",
+     "name": "comments",
+     "default": false,
+     "css": [
+      "ytd-comments#comments",
+      "yt-carousel-item-view-model:has(yt-comment-teaser-carousel-item-view-model)",
+      "comments-entry-point-teaser-view-model",
+      "yt-video-metadata-carousel-view-model:has(comments-entry-point-teaser-view-model)",
+      "yt-video-metadata-carousel-view-model:has(yt-comment-teaser-carousel-item-view-model)",
+      "ytm-comments-entry-point-header-renderer",
+      "ytm-comment-section-renderer"
+     ]
+    },
+    {
+     "id": "endscreen",
+     "name": "end-screen suggestions",
+     "default": true,
+     "css": [
+      ".ytp-endscreen-content",
+      ".ytp-ce-element",
+      ".videowall-endscreen",
+      ".ytp-fullscreen-grid"
+     ]
+    },
+    {
+     "id": "subscriptions",
+     "name": "subscriptions feed",
+     "default": false,
+     "css": [
+      "ytd-browse[page-subtype=\"subscriptions\"] ytd-two-column-browse-results-renderer",
+      "ytd-guide-entry-renderer:has(a[href=\"/feed/subscriptions\"])",
+      "ytd-mini-guide-entry-renderer:has(a[href=\"/feed/subscriptions\"])",
+      "ytd-guide-section-renderer:has(a[href=\"/feed/channels\"])",
+      "html[data-mf-path=\"/feed/subscriptions\"] ytm-browse",
+      "ytm-pivot-bar-item-renderer:has(.pivot-subs)"
+     ]
+    },
+    {
+     "id": "explore",
+     "name": "Explore & Trending",
+     "default": true,
+     "css": [
+      "ytd-guide-section-renderer:has(a[href=\"/feed/hype\"])",
+      "ytd-guide-section-renderer:has(a[href=\"/gaming\"])",
+      "ytd-guide-section-renderer:has(a[href=\"/channel/UC4R8DWoMoI7CAwX8_LjQHig\"]):not(:has(a[href^=\"/@\"]))",
+      "ytd-guide-section-renderer:has(a[href=\"/channel/UC-9-kyTW8ZkZNDHQJ6FgpwQ\"]):not(:has(a[href^=\"/@\"]))",
+      ".search-bar-entry-point-more-drawer-button",
+      "[role=\"button\"][aria-label=\"Explore Menu\"]",
+      "ytm-chip-cloud-chip-renderer[chip-style=\"STYLE_EXPLORE_LAUNCHER_CHIP\"]"
+     ]
+    },
+    {
+     "id": "searchshelves",
+     "name": "suggestions in search",
+     "default": true,
+     "css": [
+      "ytd-search ytd-shelf-renderer",
+      "ytd-search ytd-horizontal-card-list-renderer:has(ytd-search-refinement-card-renderer)",
+      "ytm-search ytm-shelf-renderer"
+     ]
+    },
+    {
+     "id": "notifications",
+     "name": "notifications bell",
+     "default": false,
+     "css": [
+      "ytd-notification-topbar-button-renderer",
+      "ytm-mobile-topbar-renderer [aria-label^=\"Notifications\"]"
+     ]
+    },
+    {
+     "id": "livechat",
+     "name": "live chat",
+     "default": false,
+     "css": [
+      "ytd-live-chat-frame",
+      "ytd-watch-flexy #chat-container"
+     ]
+    },
+    {
+     "id": "thumbnails",
+     "name": "thumbnails",
+     "default": false,
+     "css": [
+      "ytd-thumbnail",
+      "yt-thumbnail-view-model",
+      "yt-collection-thumbnail-view-model",
+      ".media-item-thumbnail-container",
+      ".video-thumbnail-container-large",
+      ".video-thumbnail-container-compact"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "instagram",
+   "name": "Instagram",
+   "hosts": [
+    "instagram.com"
+   ],
+   "features": [
+    {
+     "id": "reels",
+     "name": "Reels",
+     "default": true,
+     "css": [
+      "a[href=\"/reels/\"]",
+      "html[data-mf-path=\"/\"] article:has(a[href*=\"/reel/\"])"
+     ],
+     "redirects": [
+      {
+       "match": "^/reels/?$",
+       "to": "/"
+      },
+      {
+       "match": "^/reels/([\\w-]+)",
+       "to": "/reel/$1/"
+      }
+     ]
+    },
+    {
+     "id": "explore",
+     "name": "Explore",
+     "default": true,
+     "css": [
+      "html[data-mf-path=\"/explore/\"] main a[href*=\"/p/\"]",
+      "html[data-mf-path=\"/explore/\"] main a[href*=\"/reel/\"]",
+      "html[data-mf-path=\"/explore/\"] main div:has(> div > div > a[href*=\"/p/\"])"
+     ]
+    },
+    {
+     "id": "stories",
+     "name": "Stories",
+     "default": false,
+     "css": [
+      "html[data-mf-path=\"/\"] main ul:has(> li button[aria-label*=\"tory\"])",
+      "section > main div.xw7yly9 > div.xmnaoh6"
+     ]
+    },
+    {
+     "id": "feed",
+     "name": "home feed",
+     "default": false,
+     "css": [
+      "html[data-mf-path=\"/\"] main article",
+      "html[data-mf-path=\"/\"] main div:has(> article)"
+     ]
+    },
+    {
+     "id": "suggested",
+     "name": "suggested posts",
+     "default": true,
+     "css": [
+      "html[data-mf-path=\"/\"] div:has(a[href*=\"variant=past_posts\"]) ~ article"
+     ]
+    },
+    {
+     "id": "accounts",
+     "name": "suggested accounts",
+     "default": true,
+     "css": [
+      "div:has(> div > a[href=\"/explore/people/\"])",
+      "div:has(> div > a[href$=\"/related_profiles/\"])",
+      "html[data-mf-path^=\"/explore/people\"] main"
+     ]
+    },
+    {
+     "id": "threads",
+     "name": "Threads links",
+     "default": false,
+     "css": [
+      "a[href^=\"https://www.threads.com\"]",
+      "a[href^=\"https://threads.com\"]",
+      "a[href^=\"https://www.threads.net\"]",
+      "a[href^=\"https://threads.net\"]"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "x",
+   "name": "X",
+   "hosts": [
+    "x.com",
+    "twitter.com"
+   ],
+   "features": [
+    {
+     "id": "timeline",
+     "name": "home timeline",
+     "default": false,
+     "css": [
+      "html[data-mf-path=\"/home\"] [data-testid=\"primaryColumn\"] section[role=\"region\"]"
+     ]
+    },
+    {
+     "id": "trends",
+     "name": "trends & news",
+     "default": true,
+     "css": [
+      "[data-testid=\"sidebarColumn\"] section:has([data-testid=\"trend\"])",
+      "section:has(div[aria-label=\"Timeline: Trending now\"])",
+      "div:has(> div[data-testid=\"news_sidebar\"])",
+      "div:has(> div[data-testid^=\"news_sidebar_article_\"])"
+     ]
+    },
+    {
+     "id": "follow",
+     "name": "who to follow",
+     "default": true,
+     "css": [
+      "[data-testid=\"sidebarColumn\"] aside:has([data-testid=\"UserCell\"])",
+      "html[data-mf-path=\"/home\"] [data-testid=\"cellInnerDiv\"]:has([data-testid=\"UserCell\"])"
+     ]
+    },
+    {
+     "id": "foryou",
+     "name": "For You tab",
+     "default": false,
+     "css": [
+      "html[data-mf-path=\"/home\"] div[role=\"tablist\"] > div:first-child:has(> [role=\"tab\"])",
+      "html[data-mf-path=\"/home\"] main:has(div[role=\"tablist\"] > div:first-child > [role=\"tab\"][aria-selected=\"true\"]) [data-testid=\"primaryColumn\"] section[role=\"region\"]",
+      "html[data-mf-path=\"/home\"] [data-testid=\"primaryColumn\"]:has(div[role=\"tablist\"] > div:first-child > [role=\"tab\"][aria-selected=\"true\"]) section[role=\"region\"]"
+     ]
+    },
+    {
+     "id": "explore",
+     "name": "Explore page",
+     "default": true,
+     "css": [
+      "html[data-mf-path^=\"/explore\"] [data-testid=\"primaryColumn\"] > div > div:not(:has(form))",
+      "html[data-mf-path^=\"/explore\"] [data-testid=\"primaryColumn\"] nav",
+      "html[data-mf-path^=\"/explore\"] [data-testid=\"primaryColumn\"] section[role=\"region\"]",
+      "html[data-mf-path^=\"/explore\"] [data-testid=\"TopNavBar\"] > div > div:nth-of-type(2)",
+      "html[data-mf-path^=\"/explore\"] [data-testid=\"eventHero\"]"
+     ]
+    },
+    {
+     "id": "badges",
+     "name": "notification counts",
+     "default": false,
+     "css": [
+      "header nav a[href^=\"/notifications\"] div[aria-live]",
+      "header nav a[href=\"/messages\"] div[aria-live]",
+      "header nav a[href$=\"/i/chat\"] div[aria-live]",
+      "button[data-testid=\"SideNav_AccountSwitcher_Button\"] > div > div[aria-label]",
+      "#layers nav > a[href^=\"/notifications\"] div[aria-label]",
+      "#layers nav > a[href=\"/messages\"] div[aria-label]",
+      "#layers nav > a[href$=\"/i/chat\"] div[aria-label]",
+      "button[data-testid=\"DashButton_ProfileIcon_Link\"] div[aria-label]"
+     ]
+    },
+    {
+     "id": "grok",
+     "name": "Grok buttons",
+     "default": false,
+     "css": [
+      "a[href$=\"/i/grok\"]",
+      "[data-testid=\"GrokDrawer\"]",
+      "button[data-testid=\"grokImgGen\"]",
+      "button[aria-label=\"Grok\"]",
+      "button[aria-label=\"Grok actions\"]",
+      "button[aria-label=\"Profile Summary\"]",
+      "[data-testid=\"tweet\"] [data-testid^=\"followups_\"]",
+      "[data-testid=\"tweet\"] [data-testid^=\"followups_\"] + nav",
+      "html[data-mf-path=\"/search\"] [data-testid=\"primaryColumn\"] > div > div:has(> [data-testid=\"followups_search\"])",
+      "[data-testid=\"card.wrapper\"]:has(> div > a[href=\"https://itunes.apple.com/app/id6670324846\"])",
+      "[data-testid=\"sidebarColumn\"] div:has(> aside[role=\"complementary\"] > a[href^=\"https://grok.com/imagine\"])"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "facebook",
+   "name": "Facebook",
+   "hosts": [
+    "facebook.com"
+   ],
+   "features": [
+    {
+     "id": "feed",
+     "name": "news feed",
+     "default": false,
+     "css": [
+      "html[data-mf-path=\"/\"] [role=\"main\"] [role=\"feed\"]",
+      "html[data-mf-path=\"/home.php\"] [role=\"main\"] [role=\"feed\"]",
+      "html[data-mf-path=\"/\"] div.x1hc1fzr.x1unhpq9.x6o7n8i"
+     ]
+    },
+    {
+     "id": "reels",
+     "name": "Reels & short videos",
+     "default": true,
+     "css": [
+      "a[href=\"/reel/\"]",
+      "a[href^=\"/reel/?s=\"]",
+      "[role=\"feed\"] > div:has(a[href*=\"/reel/\"])",
+      "[role=\"region\"][aria-label*=\"Reels\"]",
+      "div[aria-label=\"Reels\"]"
+     ],
+     "redirects": [
+      {
+       "match": "^/reel/?$",
+       "to": "/"
+      }
+     ]
+    },
+    {
+     "id": "stories",
+     "name": "Stories",
+     "default": false,
+     "css": [
+      "[data-pagelet=\"Stories\"]",
+      "[role=\"region\"][aria-label=\"Stories\"]",
+      "div.x193iq5w.xgmub6v.x1ceravr.x1v0nzow"
+     ]
+    },
+    {
+     "id": "watch",
+     "name": "Video tab",
+     "default": true,
+     "css": [
+      "[role=\"banner\"] li:has(a[href*=\"/watch/\"])",
+      "[role=\"banner\"] li:has(a[href*=\"/video/\"])",
+      "[role=\"banner\"] a[href*=\"/watch/\"]",
+      "[role=\"banner\"] a[href*=\"/video/\"]",
+      "[role=\"navigation\"] li:has(a[href*=\"/watch/\"])",
+      "[role=\"navigation\"] a[href*=\"/watch/\"]"
+     ]
+    },
+    {
+     "id": "marketplace",
+     "name": "Marketplace",
+     "default": false,
+     "css": [
+      "[role=\"banner\"] li:has(a[href*=\"/marketplace/\"])",
+      "[role=\"banner\"] a[href*=\"/marketplace/\"]",
+      "[role=\"navigation\"] li:has(a[href*=\"/marketplace/\"])",
+      "[role=\"navigation\"] a[href*=\"/marketplace/\"]"
+     ],
+     "redirects": [
+      {
+       "match": "^/marketplace(?!/item/)",
+       "to": "/"
+      }
+     ]
+    },
+    {
+     "id": "groups",
+     "name": "Groups feed",
+     "default": false,
+     "css": [
+      "html[data-mf-path^=\"/groups/feed\"] [role=\"main\"] [role=\"feed\"]",
+      "html[data-mf-path^=\"/groups/feed\"] div[role=\"feed\"]"
+     ]
+    },
+    {
+     "id": "pymk",
+     "name": "People you may know",
+     "default": true,
+     "css": [
+      "[role=\"feed\"] > div:has([aria-label=\"People you may know\" i])",
+      "html:not([data-mf-path^=\"/friends\"]) [aria-label=\"People you may know\" i]",
+      "[data-pagelet*=\"PeopleYouMayKnow\"]",
+      "[data-pagelet*=\"PeopleYouMightKnow\"]"
+     ]
+    },
+    {
+     "id": "rightrail",
+     "name": "sponsored sidebar",
+     "default": true,
+     "css": [
+      "[role=\"complementary\"] div:not([class]):not([id]) > span:not([class]):not([id]):not([aria-labelledby])",
+      "[role=\"complementary\"] a[attributionsrc^=\"/privacy_sandbox/comet/register/source/\"]"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "reddit",
+   "name": "Reddit",
+   "hosts": [
+    "reddit.com"
+   ],
+   "features": [
+    {
+     "id": "feeds",
+     "name": "Home & Popular feeds",
+     "default": false,
+     "css": [
+      "html[data-mf-path=\"/\"] shreddit-feed",
+      "html[data-mf-path=\"/\"] #siteTable",
+      "html[data-mf-path=\"/best/\"] shreddit-feed",
+      "html[data-mf-path=\"/hot/\"] shreddit-feed",
+      "html[data-mf-path=\"/new/\"] shreddit-feed",
+      "html[data-mf-path=\"/top/\"] shreddit-feed",
+      "html[data-mf-path=\"/rising/\"] shreddit-feed",
+      "html[data-mf-path^=\"/r/popular\"] shreddit-feed",
+      "html[data-mf-path^=\"/r/all\"] shreddit-feed",
+      "a[href=\"/r/popular/\"]",
+      "a[href=\"/r/all/\"]",
+      "html[data-mf-path^=\"/r/popular\"] #siteTable",
+      "html[data-mf-path^=\"/r/all\"] #siteTable"
+     ]
+    },
+    {
+     "id": "trending",
+     "name": "trending searches",
+     "default": true,
+     "css": [
+      "#reddit-trending-searches-partial-container",
+      "[id*=\"trending-searches\"]",
+      "faceplate-partial[src*=\"trending\"]"
+     ]
+    },
+    {
+     "id": "comments",
+     "name": "comments",
+     "default": false,
+     "css": [
+      "shreddit-comment-tree",
+      "comment-body-header",
+      ".commentarea"
+     ]
+    },
+    {
+     "id": "suggestions",
+     "name": "related posts & communities",
+     "default": true,
+     "css": [
+      "aside[aria-label=\"Popular Communities\"]",
+      "#popular-communities-list",
+      "#popular-communities-list-see-more",
+      "aside:has(> pdp-right-rail)",
+      "pdp-right-rail",
+      "div[id^=\"t3_\"][id$=\"_related\"]",
+      "recent-posts",
+      ".side .spacer:has(.sidecontentbox)"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "linkedin",
+   "name": "LinkedIn",
+   "hosts": [
+    "linkedin.com"
+   ],
+   "features": [
+    {
+     "id": "feed",
+     "name": "feed",
+     "default": false,
+     "css": [
+      "html[data-mf-path=\"/feed/\"] .scaffold-finite-scroll",
+      "html[data-mf-path=\"/feed\"] .scaffold-finite-scroll",
+      "html[data-mf-path=\"/feed/\"] div[componentkey^=\"container-update-list_mainFeed\"]"
+     ]
+    },
+    {
+     "id": "news",
+     "name": "LinkedIn News",
+     "default": true,
+     "css": [
+      "#feed-news-module",
+      "div:has(> div > div[data-view-name=\"news-module\"])",
+      "aside[aria-label=\"LinkedIn News\"]"
+     ]
+    },
+    {
+     "id": "suggestions",
+     "name": "follow & connect suggestions",
+     "default": true,
+     "css": [
+      ".feed-follows-module",
+      "[data-view-name=\"feed-follows-module\"]",
+      "[data-view-name=\"feed-pymk\"]",
+      "[data-testid=\"mainFeed\"] [role=\"listitem\"]:has([data-view-name=\"feed-pymk\"])",
+      "html:not([data-mf-path^=\"/mynetwork\"]) [data-view-name*=\"pymk\"]"
+     ]
+    },
+    {
+     "id": "ads",
+     "name": "promoted sidebar ads",
+     "default": true,
+     "css": [
+      ".ad-banner-container",
+      "[data-ad-banner]",
+      ".scaffold-layout__aside .artdeco-card:has([data-ad-banner])",
+      "iframe[componentkey$=\"_ad\"]",
+      "iframe[title=\"advertisement\" i]"
+     ]
+    },
+    {
+     "id": "badges",
+     "name": "notification counts",
+     "default": false,
+     "css": [
+      ".notification-badge",
+      ".notification-badge--show",
+      ".notification-badge__count",
+      ".nav-item__badge-count",
+      "[data-testid=\"primary-nav\"] [class*=\"notification-badge\"]",
+      ".msg-overlay-bubble-header__badge"
+     ]
+    }
+   ]
+  }
+ ]
+}

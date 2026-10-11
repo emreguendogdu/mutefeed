@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f6f3ec">
+<title>Mutefeed: hide Shorts, Reels and endless feeds in Safari</title>
+<meta name="description" content="A Safari extension for iPhone, iPad and Mac that hides Shorts, Reels and endless feeds and keeps the parts you came for. $3.99 once, every feature included.">
+<link rel="canonical" href="https://emreguendogdu.github.io/mutefeed/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://emreguendogdu.github.io/mutefeed/">
+<meta property="og:title" content="Mutefeed: hide Shorts and Reels in Safari">
+<meta property="og:description" content="Keep the parts you came for. $3.99 once for iPhone, iPad and Mac.">
+<meta property="og:image" content="https://emreguendogdu.github.io/mutefeed/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7.2' fill='%230c5c59'/%3E%3Crect x='8' y='8' width='16' height='4.5' rx='1.5' fill='%23f7f2e7'/%3E%3Crect x='8' y='13.75' width='16' height='4.5' rx='1.5' fill='%23e2ded2'/%3E%3Crect x='8.5' y='19.5' width='15' height='4.5' rx='1.5' fill='%23a7b6ad'/%3E%3Cline x1='9.5' y1='7' x2='22.5' y2='25' stroke='%23f37550' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/img/hero-before.webp" as="image">
+<script>
+// App Store link: the one place to change it. Every "Get Mutefeed" button reads this.
+const APP_STORE_URL = 'https://apps.apple.com/app/mutefeed/id0000000000';
+document.documentElement.classList.add('js');
+</script>
+<style>
+/* Same block in index, privacy and support: fonts, colors, header, footer. Fonts are self-hosted: no third-party requests. */
+@font-face{font-family:"Archivo";src:url("assets/fonts/archivo.woff2") format("woff2");font-weight:400 800;font-stretch:100% 125%;font-display:swap}
+@font-face{font-family:"Fragment Mono";src:url("assets/fonts/fragment-mono.woff2") format("woff2");font-weight:400;font-display:swap}
+:root{--paper:#f6f3ec;--card:#fffdf8;--ink:#1c221f;--muted:#5b645f;--line:#e2ddd2;--teal:#0c5c59;--coral:#f37550;
+--display:"Archivo","Helvetica Neue",Arial,sans-serif;--mono:"Fragment Mono",ui-monospace,Menlo,monospace}
+.top{display:flex;align-items:center;gap:1.5rem;padding-top:1.25rem;padding-bottom:1.25rem}
+.brand{display:inline-flex;align-items:center;gap:.6rem;margin-right:auto;font:700 1.25rem/1 var(--display);font-stretch:112%;letter-spacing:-.035em;color:var(--ink);text-decoration:none}
+.brand .mark{width:1.75rem;height:1.75rem;flex:none}
+.top-nav{display:flex;gap:1.5rem}
+.top-nav a,.foot a{color:var(--ink);text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;transition:background-size .5s cubic-bezier(.16,1,.3,1)}
+.top-nav a:hover,.foot a:hover{background-size:100% 1px}
+.top-nav,.foot{font:400 .75rem/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.5rem 1.5rem;padding-top:1.25rem;padding-bottom:2rem;border-top:1px solid var(--ink);color:var(--muted)}
+.foot nav{display:flex;gap:1.5rem}
+
+/* ---------- Landing ---------- */
+:root{--ink-2:rgba(28,34,31,.68);--ink-3:rgba(28,34,31,.3);--rule:rgba(28,34,31,.14);--m:1.25rem;
+--expo:cubic-bezier(.16,1,.3,1);--quart:cubic-bezier(.25,1,.5,1);--inout:cubic-bezier(.87,0,.13,1);
+--grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E")}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:var(--paper)}
+body{margin:0;font:400 1.0625rem/1.55 var(--display);color:var(--ink);background:var(--grain),var(--paper);-webkit-font-smoothing:antialiased;font-kerning:normal;overflow-x:clip}
+h1,h2,h3,p,ol,ul,figure{margin:0}
+ol,ul{padding:0;list-style:none}
+img,svg{display:block;max-width:100%}
+::selection{background:var(--teal);color:var(--paper)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:.25rem}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.wrap{width:min(100% - 2 * var(--m),88rem);margin-inline:auto}
+.mono{font:400 .75rem/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+
+.folio{position:relative;display:flex;justify-content:space-between;gap:1rem;padding-bottom:.85rem;font:400 .75rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.folio span+span{color:var(--ink-2)}
+.folio::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform-origin:left;transition:transform 1.4s var(--expo)}
+
+.display,.h2,.ledger,.price-big{font-family:var(--display);font-weight:780;font-stretch:112%;text-wrap:balance}
+.display{font-size:3.15rem;line-height:.9;letter-spacing:-.045em}
+.h2{font-size:2.6rem;line-height:.94;letter-spacing:-.04em}
+.lede{font-size:1.125rem;line-height:1.5;color:var(--ink-2);max-width:34rem;text-wrap:pretty}
+.kicker{font-weight:620;font-stretch:106%;font-size:1.5rem;line-height:1.1;letter-spacing:-.025em;color:var(--teal)}
+.section{padding-top:5rem;padding-bottom:5rem}
+.section .h2{margin-top:2rem}
+.section .lede{margin-top:1.25rem}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.9rem;padding:1.05rem 1.5rem;border-radius:62.5rem;background:var(--ink);color:var(--paper);text-decoration:none;font:650 1.0625rem/1 var(--display);font-stretch:108%;letter-spacing:-.01em;transition:background .5s var(--expo),transform .5s var(--expo)}
+.btn small{font:400 .8125rem/1 var(--mono);letter-spacing:.04em;opacity:.72}
+.btn i{font-style:normal;transition:transform .5s var(--expo)}
+.btn:hover{background:var(--teal)}
+.btn:hover i{transform:translate(.15rem,-.15rem)}
+.btn:active{transform:scale(.98)}
+.btn--sm{padding:.65rem .95rem;font-size:.875rem;gap:.55rem}
+.btn--paper{background:var(--paper);color:var(--ink)}
+.btn--paper:hover{background:#fff}
+.top-nav{display:none}
+
+/* Hero */
+.hero{padding-top:.5rem;padding-bottom:1.5rem}
+.hero-grid{display:grid;gap:3rem;margin-top:1.75rem}
+.hero .display .line{display:block;overflow:hidden;padding-bottom:.09em;margin-bottom:-.09em}
+.hero .display .line>span{display:block}
+.hero .kicker{margin-top:1.5rem}
+.hero .lede{margin-top:.9rem}
+.cta{display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;margin-top:2rem}
+.cta .mono{color:var(--ink-2)}
+
+.demo{position:relative;width:min(15.5rem,100vw - 9rem);margin-left:auto;margin-right:.75rem}
+.chip{position:absolute;z-index:3;transition:box-shadow .5s var(--expo),transform .5s var(--expo);left:-5.75rem;top:30%;display:flex;align-items:center;gap:.85rem;padding:.7rem .75rem .7rem 1rem;border:0;border-radius:.9rem;background:var(--card);color:var(--ink);font:550 1rem/1 var(--display);box-shadow:0 0 0 1px var(--rule),0 1rem 2rem -1rem rgba(28,34,31,.35);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.toggle{position:relative;width:2.75rem;height:1.65rem;border-radius:1rem;background:#d9d6cd;transition:background .45s var(--expo)}
+.toggle::after{content:"";position:absolute;top:.2rem;left:.2rem;width:1.25rem;height:1.25rem;border-radius:50%;background:#fff;box-shadow:0 .1rem .25rem rgba(0,0,0,.2);transition:transform .45s var(--expo)}
+.chip:hover{transform:translateY(-.125rem);box-shadow:0 0 0 1px var(--rule),0 1.25rem 2.25rem -1rem rgba(28,34,31,.45)}
+[data-state=after] .toggle{background:var(--teal)}
+[data-state=after] .toggle::after{transform:translateX(1.1rem)}
+.state{display:flex;align-items:center;gap:.55rem;margin-top:1.1rem;color:var(--ink-2)}
+.state::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--ink-3);transition:background .45s}
+[data-state=after] .state::before{background:var(--teal)}
+.state .s-after,[data-state=after] .state .s-before{display:none}
+[data-state=after] .state .s-after{display:inline}
+
+/* Devices, drawn flat and straight. Chrome is SVG so it scales with the frame. */
+.phone{position:relative;padding:4.4%;border-radius:17% / 8.2%;background:linear-gradient(145deg,#303634,#151817 45%,#242827);box-shadow:inset 0 0 0 1.5px #4a504e,inset 0 0 0 4px #0b0d0c,0 2.5rem 4rem -2.25rem rgba(28,34,31,.5),0 .5rem 1.25rem -.5rem rgba(28,34,31,.25)}
+.screen{position:relative;aspect-ratio:393/852;border-radius:14% / 6.45%;overflow:hidden;background:#fff;transform:translateZ(0)}
+.screen>svg{position:absolute;left:0;width:100%;height:auto}
+.screen .sb{top:0}
+.screen .sf{bottom:0}
+.pg{position:absolute;left:0;top:6.338%;width:100%;height:83.803%;overflow:hidden}
+.pg img,.pg svg{position:absolute;inset:0;width:100%;height:100%}
+.pg img{object-fit:cover}
+.shot-after{opacity:0;transition:opacity .8s var(--expo)}
+[data-state=after] .shot-after{opacity:1}
+.sf .ext{opacity:0;transition:opacity .4s}
+[data-state=after] .sf .ext{opacity:1}
+[data-state=after] .sf .glyph{opacity:0}
+
+.marks{overflow:visible;transition:opacity .45s var(--expo)}
+.marks path{fill:none;stroke:var(--coral);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1.1;stroke-dashoffset:0}
+.marks .box{stroke-width:2.4;fill:rgba(243,117,80,.14);transition:stroke-dashoffset 1.1s var(--expo),fill .7s var(--expo) .55s}
+.marks .slash{stroke-width:5.5;transition:stroke-dashoffset .6s var(--quart) .8s}
+[data-state=before] .marks path{stroke-dashoffset:1.05;fill:rgba(243,117,80,0);transition:none}
+[data-state=after] .marks{opacity:0}
+
+/* 01 The edit */
+.ledger{margin-top:2.25rem;font-size:2.35rem;line-height:1.04;letter-spacing:-.04em;text-wrap:pretty}
+.kept{white-space:nowrap}
+.kept::before{content:"";display:inline-block;width:.17em;height:.17em;margin-right:.12em;border-radius:50%;background:var(--teal);vertical-align:.24em}
+.gone{position:relative;display:inline-block;white-space:nowrap;color:var(--ink-3);transition:color .9s var(--expo) var(--d,0s)}
+.gone::after{content:"";position:absolute;left:-.05em;right:-.05em;top:.5em;height:.085em;border-radius:1em;background:var(--coral);transform-origin:left;transition:transform .75s var(--expo) var(--d,0s)}
+.legend{display:flex;flex-wrap:wrap;gap:.75rem 1.75rem;margin-top:2rem;color:var(--ink-2)}
+.legend span{display:inline-flex;align-items:center;gap:.6rem}
+.legend span::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--teal)}
+.legend span+span::before{width:1.4rem;height:.2rem;border-radius:1rem;background:var(--coral)}
+.sites-wrap{margin-top:4rem}
+.sites-wrap .mono{color:var(--ink-2)}
+.sites{display:grid;grid-template-columns:1fr 1fr;column-gap:1.25rem;margin-top:1rem;border-top:1px solid var(--ink)}
+.sites li{display:flex;flex-direction:column;gap:.9rem;padding:.9rem 0 1.25rem;border-bottom:1px solid var(--rule);font:740 1.5rem/1 var(--display);font-stretch:112%;letter-spacing:-.035em}
+.sites li span{font:400 .6875rem/1 var(--mono);letter-spacing:.06em;color:var(--ink-2)}
+
+/* 02 Switches */
+.switch-grid{display:grid;gap:2.75rem}
+.popup{position:relative;width:64%;margin-top:.5rem}
+.popup .card{border-radius:1.1rem;overflow:hidden;background:#f4f7f5;box-shadow:0 0 0 1px var(--rule),0 2rem 3rem -1.75rem rgba(28,34,31,.4);-webkit-mask-image:linear-gradient(#000 72%,transparent);mask-image:linear-gradient(#000 72%,transparent)}
+.popup img{width:100%;height:auto}
+.pin{position:absolute;left:91.5%;width:calc(8.5% + 1rem);height:0;border-top:1.5px solid var(--teal)}
+.pin::before{content:"";position:absolute;left:-.3rem;top:-.35rem;width:.45rem;height:.45rem;border-radius:50%;background:var(--teal);box-shadow:0 0 0 .15rem var(--card),0 0 0 .25rem var(--teal)}
+.pin b{position:absolute;left:100%;top:0;width:5.5rem;transform:translate(.5rem,-50%);font:400 .6875rem/1.25 var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.switch-copy .lede+.lede{margin-top:1rem}
+
+/* 03 Compare */
+.compare{--v:.55;--x:calc(1.5rem + var(--v) * (100% - 3rem));margin-top:2.5rem}
+.plate{border-radius:1.1rem;overflow:hidden;background:#fff;box-shadow:0 0 0 1px var(--rule),0 2.5rem 4rem -2.5rem rgba(28,34,31,.45);transform:translateZ(0)}
+.plate .tb{display:none;width:100%;height:auto}
+.view{position:relative;aspect-ratio:393/714;user-select:none;-webkit-user-select:none}
+.view picture,.view img,.view svg{position:absolute;inset:0;width:100%;height:100%}
+.view img{object-fit:cover}
+.view .before{position:absolute;inset:0;clip-path:inset(0 0 0 var(--x))}
+.view .marks{overflow:hidden}
+.view .marks path{stroke-dasharray:none}
+.view .marks .box{stroke-width:2}
+.view .marks .slash{stroke-width:5}
+.mk-mac,.for-mac{display:none}
+.handle{position:absolute;top:0;bottom:0;left:var(--x);width:2px;margin-left:-1px;background:var(--ink);pointer-events:none}
+.handle::after{content:"\2039\2002\203A";position:absolute;top:50%;left:50%;display:grid;place-items:center;width:3rem;height:3rem;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink);transform:translate(-50%,-50%);font:400 1rem/1 var(--mono);color:var(--ink)}
+.view input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;-webkit-appearance:none;appearance:none;background:transparent;cursor:ew-resize;touch-action:pan-y}
+.view input::-webkit-slider-runnable-track{height:100%;background:transparent}
+.view input::-webkit-slider-thumb{-webkit-appearance:none;width:3rem;height:60rem}
+.view:has(input:focus-visible) .handle::after{outline:2px solid var(--teal);outline-offset:3px}
+.cmp-tags{display:flex;justify-content:space-between;margin-bottom:.9rem;color:var(--ink-2)}
+.cmp-tags span{display:inline-flex;align-items:center;gap:.55rem}
+.cmp-tags span::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--teal)}
+.cmp-tags span+span::before{background:var(--ink-3)}
+.cut{position:absolute;transform:translate(-50%,-50%);font:400 .875rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);white-space:nowrap}
+.cut::after{content:"";position:absolute;left:-.2em;right:-.2em;top:.45em;height:.2em;border-radius:1em;background:var(--coral)}
+.cut--phone{left:26%;top:86%}
+.hint{margin-top:1rem;color:var(--ink-2)}
+
+/* 04 Devices */
+.stage{position:relative;aspect-ratio:1/1.04;margin-top:2.75rem}
+.stage>*{position:absolute}
+.d-mac{left:0;top:0;width:100%}
+.d-ipad{left:0;bottom:0;width:47%;z-index:2}
+.d-phone{right:5%;bottom:0;width:25%;z-index:3}
+.win{border-radius:.6rem;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(28,34,31,.14),0 2rem 4rem -2.25rem rgba(28,34,31,.45);transform:translateZ(0)}
+.win svg,.win img{width:100%;height:auto}
+.tab{padding:2.6%;border-radius:6% / 4.6%;background:linear-gradient(145deg,#303634,#151817 45%,#242827);box-shadow:inset 0 0 0 1.5px #4a504e,inset 0 0 0 3px #0b0d0c,0 2rem 3.5rem -2rem rgba(28,34,31,.5)}
+.tab .scr{position:relative;aspect-ratio:1032/1376;border-radius:2.4% / 1.8%;overflow:hidden;background:#fff;transform:translateZ(0)}
+.tab .scr svg{width:100%;height:auto}
+.tab .scr img{position:absolute;left:0;top:6.25%;width:100%;height:93.75%;object-fit:cover}
+
+/* 05 Price */
+.price{background:var(--grain),var(--teal);color:var(--paper)}
+.price .folio span+span{color:rgba(246,243,236,.72)}
+.price-big{margin-top:2.25rem;margin-left:-.05em;font-weight:800;font-stretch:125%;font-size:6rem;line-height:.84;letter-spacing:-.06em}
+.price-big span{display:block}
+.price-side{margin-top:2.5rem}
+.price-lead{font-weight:640;font-stretch:106%;font-size:1.5rem;line-height:1.15;letter-spacing:-.025em}
+.price-list{margin-top:1.5rem;border-top:1px solid rgba(246,243,236,.4)}
+.price-list li{display:flex;gap:1.25rem;align-items:baseline;padding:.85rem 0;border-bottom:1px solid rgba(246,243,236,.4);font-size:1.125rem;font-weight:520}
+.price-list li span{font:400 .75rem/1 var(--mono);letter-spacing:.06em;color:rgba(246,243,236,.72)}
+.price .btn{margin-top:2rem}
+
+/* 06 Privacy */
+.privacy-grid{display:grid;gap:3.5rem}
+.rules{border-top:1px solid var(--ink);padding-top:1.5rem}
+.rules h3{font:740 1.6rem/1 var(--display);font-stretch:112%;letter-spacing:-.035em}
+.ruler{position:relative;height:5rem;margin:2.25rem 0 1rem;border-bottom:1px solid var(--ink)}
+.ruler::before{content:"";position:absolute;left:0;right:0;bottom:0;height:.5rem;background:linear-gradient(90deg,var(--ink-3) 1px,transparent 1px) 0 0/calc(100% / 24) 100% repeat-x}
+.ruler li{position:absolute;bottom:0;left:calc(var(--p) * 100%);width:1px;height:1.6rem;background:var(--ink)}
+.ruler li::before{content:"";position:absolute;left:50%;top:-1.25rem;width:.7rem;height:.7rem;margin-left:-.35rem;border-radius:50%;background:var(--teal);transition:transform .7s var(--expo) calc(var(--p) * 1.2s + .2s)}
+.ruler li:last-child::before{background:none;box-shadow:inset 0 0 0 1.5px var(--teal)}
+.ruler li span{position:absolute;top:calc(100% + .6rem);left:0;transform:translateX(-50%);font:400 .6875rem/1 var(--mono);letter-spacing:.04em;white-space:nowrap;color:var(--ink-2)}
+.ruler li:last-child span{transform:translateX(-100%)}
+.ruler li:first-child span{transform:none}
+.rules .lede{margin-top:2.75rem}
+.links{display:flex;flex-wrap:wrap;gap:.75rem 1.75rem;margin-top:1.5rem}
+.links a{font:400 .75rem/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--teal);text-decoration:none;padding-bottom:.2rem;border-bottom:1px solid currentColor}
+.links a:hover{color:var(--ink)}
+
+/* 07 Setup */
+.setup-grid{display:grid;gap:3rem}
+.steps{display:grid;gap:2.5rem}
+.steps h3{font:740 1.35rem/1 var(--display);font-stretch:112%;letter-spacing:-.03em;margin-bottom:1rem}
+.steps li{display:grid;grid-template-columns:2.25rem 1fr;padding:.85rem 0;border-top:1px solid var(--rule);font-size:1rem;line-height:1.45}
+.steps li:last-child{border-bottom:1px solid var(--rule)}
+.steps li span{font:400 .75rem/1.9 var(--mono);color:var(--ink-2)}
+
+/* Close */
+.close{padding-top:5rem;padding-bottom:5rem}
+.close img{width:4.5rem;height:4.5rem;border-radius:22.5%;box-shadow:0 1rem 2rem -1rem rgba(12,92,89,.6)}
+.close .display{margin-top:2rem;font-size:3.25rem}
+.close .cta{margin-top:2.25rem}
+
+@media (max-width:22.5rem){
+  .hero .folio span+span{display:none}
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width:48rem){
+  :root{--m:2.5rem}
+  .top-nav{display:flex}
+  .display{font-size:5.5rem}
+  .h2{font-size:3.75rem}
+  .lede{font-size:1.25rem}
+  .kicker{font-size:1.875rem}
+  .section{padding-top:7rem;padding-bottom:7rem}
+  .cta{flex-direction:row;align-items:center;gap:1.5rem}
+  .demo{width:19rem;margin-right:4rem}
+  .chip{left:-7.5rem}
+  .ledger{font-size:4rem}
+  .sites{grid-template-columns:repeat(3,1fr)}
+  .popup{width:22rem}
+  .pin{width:calc(8.5% + 2rem)}
+  .pin b{width:auto;white-space:nowrap}
+  .price-big{font-size:10rem}
+  .stage{aspect-ratio:16/11}
+  .d-mac{width:84%}
+  .d-ipad{left:auto;right:12%;width:34%}
+  .d-phone{right:0;width:17%}
+  .steps{grid-template-columns:1fr 1fr;gap:2rem}
+  .close .display{font-size:5.5rem}
+}
+
+/* ---------- Desktop ---------- */
+@media (min-width:64rem){
+  :root{--m:3.5rem}
+  .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem}
+  .hero{padding-top:.75rem;padding-bottom:2rem}
+  .hero-grid{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem;margin-top:3.25rem;align-items:start}
+  .hero-copy{grid-column:1 / span 8;padding-top:1.5rem}
+  .display{font-size:6rem}
+  .hero .kicker{margin-top:2.25rem}
+  .hero .lede{max-width:31rem}
+  .cta{margin-top:2.5rem}
+  .demo{grid-column:9 / span 4;justify-self:center;width:18.75rem;margin:0}
+  .chip{left:-4.5rem;top:31%}
+
+  .section{padding-top:8rem;padding-bottom:8rem}
+  .section .h2{margin-top:3rem}
+  .h2{font-size:4.75rem}
+  .ledger{font-size:5.25rem;margin-top:3rem}
+  .legend{margin-top:2.5rem}
+  .sites-wrap{margin-top:6rem}
+  .sites{grid-template-columns:repeat(6,1fr);column-gap:0}
+  .sites li{padding:1.1rem 1rem 1.5rem;border-bottom:0;border-left:1px solid var(--rule);font-size:1.875rem}
+  .sites li:first-child{border-left:0;padding-left:0}
+
+  .switch-grid{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem;align-items:center;margin-top:3.5rem}
+  .popup{grid-column:1 / span 5;grid-row:1;width:25rem;margin-top:0}
+  .switch-copy{grid-column:8 / span 5;grid-row:1}
+  .switch-copy .h2{margin-top:0}
+
+  .cmp-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem;align-items:end}
+  .cmp-head .h2{grid-column:1 / span 7}
+  .cmp-head .lede{grid-column:9 / span 4;margin:0}
+  .compare{margin-top:3.5rem}
+  .plate{border-radius:.75rem}
+  .plate .tb{display:block}
+  .view{aspect-ratio:1440/900}
+  .mk-phone,.for-phone{display:none}
+  .mk-mac,.for-mac{display:block}
+  .cut--mac{left:85.1%;top:37.8%}
+
+  .dev-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem;align-items:end}
+  .dev-head .h2{grid-column:1 / span 7}
+  .dev-head .lede{grid-column:9 / span 4;margin:0}
+  .stage{aspect-ratio:16/8.4;margin-top:4rem}
+  .d-mac{left:2%;width:70%}
+  .d-ipad{right:13%;width:25%}
+  .d-phone{right:1%;width:12.5%}
+
+  .price .section{padding-top:8rem;padding-bottom:8rem}
+  .price-big{grid-column:1 / span 7;margin-top:3rem;font-size:13rem}
+  .price-side{grid-column:9 / span 4;align-self:end;margin-top:0}
+
+  .privacy-grid{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem}
+  .privacy-copy{grid-column:1 / span 5}
+  .rules{grid-column:7 / span 6;margin-top:3rem}
+
+  .setup-grid{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem}
+  .setup-copy{grid-column:1 / span 5}
+  .steps{grid-column:7 / span 6;margin-top:3rem}
+
+  .close{padding-top:8rem;padding-bottom:7rem}
+  .close-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:1.5rem;align-items:end}
+  .close .display{grid-column:1 / span 9;font-size:6rem}
+  .close .cta{grid-column:10 / span 3;flex-direction:column;align-items:flex-start;margin:0}
+}
+@media (min-width:80rem){
+  .display{font-size:7rem}
+  .chip{left:-8.5rem}
+  .close .display{font-size:7.5rem}
+}
+@media (min-width:90rem){
+  .display{font-size:8rem}
+  .ledger{font-size:6rem}
+  .price-big{font-size:15rem}
+  .close .display{font-size:8.5rem}
+}
+
+/* ---------- Motion: hidden start states only apply when JS runs and motion is welcome ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .js .hero .display .line>span{transform:translateY(105%);animation:up 1.1s var(--expo) forwards;animation-delay:calc(.15s + var(--i) * .09s)}
+  .js .rise{opacity:0;transform:translateY(1.25rem);animation:rise 1s var(--expo) forwards;animation-delay:var(--d)}
+  .js .hero .folio::after{transform:scaleX(0);animation:draw 1.4s var(--expo) .05s forwards}
+  .js .reveal{opacity:0;transform:translateY(2.25rem);transition:opacity 1s var(--expo),transform 1.2s var(--expo)}
+  .js .reveal.in{opacity:1;transform:none}
+  .js .section .folio:not(.in)::after{transform:scaleX(0)}
+  .js .ledger:not(.in) .gone{color:var(--ink)}
+  .js .ledger:not(.in) .gone::after{transform:scaleX(0)}
+  .js .ruler:not(.in) li::before{transform:scale(0)}
+  .js .compare.in{animation:nudge 1.8s var(--inout) .3s}
+}
+@property --v{syntax:"<number>";inherits:true;initial-value:.5}
+@keyframes up{to{transform:none}}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes draw{to{transform:none}}
+@keyframes nudge{0%{--v:.55}35%{--v:.3}70%{--v:.75}100%{--v:.55}}
+</style>
+</head>
+<body>
+
+<header class="top wrap">
+  <a class="brand" href="./">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7.2" fill="#0c5c59"/><rect x="8" y="8" width="16" height="4.5" rx="1.5" fill="#f7f2e7"/><rect x="8" y="13.75" width="16" height="4.5" rx="1.5" fill="#e2ded2"/><rect x="8.5" y="19.5" width="15" height="4.5" rx="1.5" fill="#a7b6ad"/><line x1="9.5" y1="7" x2="22.5" y2="25" stroke="#f37550" stroke-width="2.2" stroke-linecap="round"/></svg>
+    Mutefeed
+  </a>
+  <nav class="top-nav" aria-label="Pages"><a href="support.html">Support</a><a href="privacy.html">Privacy</a></nav>
+  <a class="btn btn--sm" href="#price" data-appstore>Get it <small>$3.99</small></a>
+</header>
+
+<main>
+<section class="hero wrap" aria-labelledby="hero-title">
+  <p class="folio"><span>Safari extension</span><span>iPhone · iPad · Mac</span></p>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <h1 class="display" id="hero-title"><span class="line"><span style="--i:0">Hide Shorts</span></span><span class="line"><span style="--i:1">and Reels.</span></span></h1>
+      <p class="kicker rise" style="--d:.45s">Keep the parts you came for.</p>
+      <p class="lede rise" style="--d:.55s">Mutefeed is a Safari extension that hides the endless feeds on YouTube, Instagram, X, Facebook, Reddit and LinkedIn. Search, messages and subscriptions keep working.</p>
+      <div class="cta rise" style="--d:.65s">
+        <a class="btn" href="#price" data-appstore>Get Mutefeed <small>$3.99</small> <i aria-hidden="true">↗</i></a>
+        <p class="mono">Pay once · No subscription</p>
+      </div>
+    </div>
+
+    <figure class="demo rise" style="--d:.3s" data-state="marked">
+      <div class="phone">
+        <div class="screen">
+          <svg class="sb" viewBox="0 0 393 54" aria-hidden="true"><rect width="393" height="54" fill="#fff"/><text x="70" y="36" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="17" font-weight="600">9:41</text><rect x="134.5" y="11" width="124" height="36" rx="18"/><g transform="translate(296 23)"><rect y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" width="3" height="12" rx="1"/></g><path d="M330 25.2c2.4 0 4.6.9 6.3 2.4l1.2-1.3c-2.1-2-4.7-3-7.5-3s-5.4 1-7.5 3l1.2 1.3c1.7-1.5 3.9-2.4 6.3-2.4zm0 3.8c1.4 0 2.6.5 3.6 1.3l1.3-1.3c-1.3-1.2-3-1.9-4.9-1.9s-3.6.7-4.9 1.9l1.3 1.3c1-.8 2.2-1.3 3.6-1.3zm0 3.7c.5 0 1 .2 1.3.5l-1.3 1.5-1.3-1.5c.3-.3.8-.5 1.3-.5z"/><rect x="346.5" y="22.5" width="23" height="12" rx="3.5" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="348" y="24" width="20" height="9" rx="2.2"/></svg>
+          <div class="pg">
+            <img class="shot-before" src="assets/img/hero-before.webp" width="786" height="1428" alt="YouTube search results in Safari on iPhone, filled with a grid of Shorts" fetchpriority="high">
+            <img class="shot-after" src="assets/img/hero-after.webp" width="786" height="1428" alt="The same search with Mutefeed on: regular videos, and the Shorts are gone">
+            <svg class="marks" viewBox="0 0 393 714" preserveAspectRatio="none" aria-hidden="true"><path class="box" pathLength="1" d="M24 62H369A6 6 0 0 1 375 68V650A6 6 0 0 1 369 656H24A6 6 0 0 1 18 650V68A6 6 0 0 1 24 62Z"/><path class="slash" pathLength="1" d="M20 64L373 654"/><path class="box" pathLength="1" d="M139 660H254A6 6 0 0 1 260 666V706A6 6 0 0 1 254 712H139A6 6 0 0 1 133 706V666A6 6 0 0 1 139 660Z"/></svg>
+          </div>
+          <svg class="sf" viewBox="0 0 393 84" aria-hidden="true"><rect width="393" height="84" fill="#f4f4f5"/><rect width="393" height=".6" fill="#000" fill-opacity=".1"/><circle cx="36" cy="30" r="22" fill="#fff" stroke="#000" stroke-opacity=".06"/><path d="M39.5 22 31.5 30l8 8" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="68" y="8" width="257" height="44" rx="22" fill="#fff" stroke="#000" stroke-opacity=".06"/><g class="glyph" fill="none" stroke="#111" stroke-width="1.6" stroke-linecap="round"><rect x="83" y="21.5" width="15" height="14" rx="3"/><path d="M86.5 26.5h8M86.5 30h5.5"/></g><g class="ext" transform="translate(80 18) scale(.75)"><rect width="32" height="32" rx="7.2" fill="#0c5c59"/><rect x="8" y="8" width="16" height="4.5" rx="1.5" fill="#f7f2e7"/><rect x="8" y="13.75" width="16" height="4.5" rx="1.5" fill="#e2ded2"/><rect x="8.5" y="19.5" width="15" height="4.5" rx="1.5" fill="#a7b6ad"/><line x1="9.5" y1="7" x2="22.5" y2="25" stroke="#f37550" stroke-width="2.2" stroke-linecap="round"/></g><text x="203" y="35.5" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="16" font-weight="500" fill="#111">youtube.com</text><circle cx="357" cy="30" r="22" fill="#fff" stroke="#000" stroke-opacity=".06"/><circle cx="350" cy="30" r="1.9" fill="#111"/><circle cx="357" cy="30" r="1.9" fill="#111"/><circle cx="364" cy="30" r="1.9" fill="#111"/><rect x="129.5" y="72" width="134" height="5" rx="2.5"/></svg>
+        </div>
+      </div>
+      <button class="chip" type="button" role="switch" aria-checked="false">Hide Shorts <i class="toggle" aria-hidden="true"></i></button>
+      <figcaption class="state mono"><span class="s-before">Before</span><span class="s-after">With Mutefeed</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section wrap" aria-labelledby="edit-title">
+  <p class="folio"><span>01 / 07</span><span>The edit</span></p>
+  <h2 class="h2 reveal" id="edit-title">You pick what goes.</h2>
+  <p class="sr-only">Mutefeed hides Shorts, Reels, Explore, trending, suggestions and home feeds. Search, messages, subscriptions and the pages you meant to visit stay.</p>
+  <p class="ledger" aria-hidden="true">
+    <span class="gone" style="--d:.15s">Shorts</span>
+    <span class="kept">Search</span>
+    <span class="gone" style="--d:.3s">Reels</span>
+    <span class="kept">Messages</span>
+    <span class="gone" style="--d:.45s">Explore</span>
+    <span class="gone" style="--d:.6s">Trending</span>
+    <span class="kept">Subscriptions</span>
+    <span class="gone" style="--d:.75s">Suggestions</span>
+    <span class="gone" style="--d:.9s">Home&nbsp;feeds</span>
+    <span class="kept">The&nbsp;pages</span> you meant to&nbsp;visit
+  </p>
+  <p class="legend mono reveal" aria-hidden="true"><span>Stays</span><span>Mutefeed hides this</span></p>
+  <div class="sites-wrap reveal">
+    <p class="mono">In Safari, on six sites</p>
+    <ol class="sites">
+      <li><span>01</span>YouTube</li>
+      <li><span>02</span>Instagram</li>
+      <li><span>03</span>X</li>
+      <li><span>04</span>Facebook</li>
+      <li><span>05</span>Reddit</li>
+      <li><span>06</span>LinkedIn</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section wrap" aria-labelledby="switch-title">
+  <p class="folio"><span>02 / 07</span><span>Switches</span></p>
+  <div class="switch-grid">
+    <div class="switch-copy reveal">
+      <h2 class="h2" id="switch-title">A switch for every part.</h2>
+      <p class="lede">Open Mutefeed from the Safari toolbar and choose what stays quiet, site by site. Changes apply right away.</p>
+      <p class="lede">Need the whole site for a minute? Each site has its own Pause.</p>
+    </div>
+    <figure class="popup reveal">
+      <div class="card"><img src="assets/img/popup.webp" width="704" height="1144" loading="lazy" decoding="async" alt="The Mutefeed menu: a YouTube section with switches for Shorts, home feed, Up next, comments and end-screen suggestions, then Instagram"></div>
+      <span class="pin" style="top:20%"><b>Pause a site</b></span>
+      <span class="pin" style="top:28.3%"><b>Hide one part</b></span>
+    </figure>
+  </div>
+</section>
+
+<section class="section wrap" aria-labelledby="watch-title">
+  <p class="folio"><span>03 / 07</span><span>Watch page</span></p>
+  <div class="cmp-head reveal">
+    <h2 class="h2" id="watch-title">One video in, one video out.</h2>
+    <p class="lede">The video stays. Up next and the suggestions around it go.</p>
+  </div>
+  <figure class="compare reveal">
+    <p class="cmp-tags mono" aria-hidden="true"><span>With Mutefeed</span><span>Before</span></p>
+    <div class="plate">
+      <svg class="tb" viewBox="0 0 1440 52" aria-hidden="true"><rect width="1440" height="52" fill="#f4f4f5"/><rect y="51" width="1440" height="1" fill="#000" fill-opacity=".1"/><circle cx="22" cy="26" r="6" fill="#ff5f57"/><circle cx="42" cy="26" r="6" fill="#febc2e"/><circle cx="62" cy="26" r="6" fill="#28c840"/><path d="M118 19l-7 7 7 7M146 19l7 7-7 7" fill="none" stroke="#8a8a8e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><rect x="520" y="9" width="400" height="34" rx="17" fill="#fff" stroke="#000" stroke-opacity=".09"/><text x="720" y="30.5" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">youtube.com</text><g transform="translate(934 15) scale(.6875)"><rect width="32" height="32" rx="7.2" fill="#0c5c59"/><rect x="8" y="8" width="16" height="4.5" rx="1.5" fill="#f7f2e7"/><rect x="8" y="13.75" width="16" height="4.5" rx="1.5" fill="#e2ded2"/><rect x="8.5" y="19.5" width="15" height="4.5" rx="1.5" fill="#a7b6ad"/><line x1="9.5" y1="7" x2="22.5" y2="25" stroke="#f37550" stroke-width="2.2" stroke-linecap="round"/></g><g fill="none" stroke="#5b5b60" stroke-width="1.6" stroke-linecap="round"><path d="M1340 17v10M1336.5 20.5l3.5-3.5 3.5 3.5M1336.5 23h-1.5v9h10v-9h-1.5"/><path d="M1376 18v12M1370 24h12"/><rect x="1404" y="20" width="11" height="11" rx="2.2"/><path d="M1407 17.5h8.5a2.5 2.5 0 0 1 2.5 2.5v8.5"/></g></svg>
+      <div class="view">
+        <picture><source media="(min-width:64rem)" srcset="assets/img/watch-mac-after.webp"><img src="assets/img/watch-phone-after.webp" loading="lazy" decoding="async" alt="A YouTube video page with Mutefeed on: the video, its title and channel, and an empty space where Up next was"></picture>
+        <span class="cut cut--phone for-phone" aria-hidden="true">Up next</span>
+        <span class="cut cut--mac for-mac" aria-hidden="true">Up next</span>
+        <div class="before">
+          <picture><source media="(min-width:64rem)" srcset="assets/img/watch-mac-before.webp"><img src="assets/img/watch-phone-before.webp" loading="lazy" decoding="async" alt="The same page before: a column of suggested videos next to the player"></picture>
+          <svg class="marks mk-phone" viewBox="0 0 393 714" preserveAspectRatio="none" aria-hidden="true"><path class="box" d="M8 502H385A6 6 0 0 1 391 508V720H2V508A6 6 0 0 1 8 502Z"/><path class="slash" d="M4 504L389 712"/></svg>
+          <svg class="marks mk-mac" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true"><path class="box" d="M1036 70H1416A6 6 0 0 1 1422 76V906H1030V76A6 6 0 0 1 1036 70Z"/><path class="slash" d="M1032 72L1420 898"/><path class="box" d="M24 860H1004A6 6 0 0 1 1010 866V906H18V866A6 6 0 0 1 24 860Z"/></svg>
+        </div>
+        <span class="handle" aria-hidden="true"></span>
+        <input type="range" min="0" max="100" value="55" aria-label="Compare the page with Mutefeed and before">
+      </div>
+    </div>
+    <figcaption class="hint mono">Drag to compare</figcaption>
+  </figure>
+</section>
+
+<section class="section wrap" aria-labelledby="dev-title">
+  <p class="folio"><span>04 / 07</span><span>Devices</span></p>
+  <div class="dev-head reveal">
+    <h2 class="h2" id="dev-title">iPhone, iPad and Mac.</h2>
+    <p class="lede">One purchase covers all three.</p>
+  </div>
+  <div class="stage reveal" role="img" aria-label="Mutefeed running in Safari on a Mac, an iPad and an iPhone">
+    <div class="d-mac win">
+      <svg viewBox="0 0 1440 52" aria-hidden="true"><rect width="1440" height="52" fill="#f4f4f5"/><rect y="51" width="1440" height="1" fill="#000" fill-opacity=".1"/><circle cx="22" cy="26" r="6" fill="#ff5f57"/><circle cx="42" cy="26" r="6" fill="#febc2e"/><circle cx="62" cy="26" r="6" fill="#28c840"/><rect x="520" y="9" width="400" height="34" rx="17" fill="#fff" stroke="#000" stroke-opacity=".09"/><text x="720" y="30.5" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="13" font-weight="500" fill="#111">youtube.com</text><g transform="translate(934 15) scale(.6875)"><rect width="32" height="32" rx="7.2" fill="#0c5c59"/><rect x="8" y="8" width="16" height="4.5" rx="1.5" fill="#f7f2e7"/><rect x="8" y="13.75" width="16" height="4.5" rx="1.5" fill="#e2ded2"/><rect x="8.5" y="19.5" width="15" height="4.5" rx="1.5" fill="#a7b6ad"/><line x1="9.5" y1="7" x2="22.5" y2="25" stroke="#f37550" stroke-width="2.2" stroke-linecap="round"/></g></svg>
+      <img src="assets/img/dev-mac.webp" width="1600" height="1000" loading="lazy" decoding="async" alt="">
+    </div>
+    <div class="d-ipad"><div class="tab"><div class="scr">
+      <svg viewBox="0 0 1032 86" aria-hidden="true"><rect width="1032" height="86" fill="#f4f4f5"/><rect y="85" width="1032" height="1" fill="#000" fill-opacity=".1"/><text x="22" y="17" font-family="-apple-system,system-ui,sans-serif" font-size="13" font-weight="600">9:41</text><rect x="990" y="7" width="22" height="11" rx="3" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="991.5" y="8.5" width="19" height="8" rx="2"/><rect x="290" y="38" width="452" height="36" rx="18" fill="#fff" stroke="#000" stroke-opacity=".09"/><text x="516" y="61" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="14" font-weight="500" fill="#111">youtube.com</text><g transform="translate(758 43) scale(.8125)"><rect width="32" height="32" rx="7.2" fill="#0c5c59"/><rect x="8" y="8" width="16" height="4.5" rx="1.5" fill="#f7f2e7"/><rect x="8" y="13.75" width="16" height="4.5" rx="1.5" fill="#e2ded2"/><rect x="8.5" y="19.5" width="15" height="4.5" rx="1.5" fill="#a7b6ad"/><line x1="9.5" y1="7" x2="22.5" y2="25" stroke="#f37550" stroke-width="2.2" stroke-linecap="round"/></g></svg>
+      <img src="assets/img/dev-ipad.webp" width="760" height="950" loading="lazy" decoding="async" alt="">
+    </div></div></div>
+    <div class="d-phone"><div class="phone"><div class="screen">
+      <svg class="sb" viewBox="0 0 393 54" aria-hidden="true"><rect width="393" height="54" fill="#fff"/><text x="70" y="36" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="17" font-weight="600">9:41</text><rect x="134.5" y="11" width="124" height="36" rx="18"/><rect x="346.5" y="22.5" width="23" height="12" rx="3.5" fill="none" stroke="#000" stroke-opacity=".4"/><rect x="348" y="24" width="20" height="9" rx="2.2"/></svg>
+      <div class="pg"><img src="assets/img/dev-phone.webp" width="480" height="872" loading="lazy" decoding="async" alt=""></div>
+      <svg class="sf" viewBox="0 0 393 84" aria-hidden="true"><rect width="393" height="84" fill="#f4f4f5"/><rect width="393" height=".6" fill="#000" fill-opacity=".1"/><circle cx="36" cy="30" r="22" fill="#fff"/><rect x="68" y="8" width="257" height="44" rx="22" fill="#fff"/><g transform="translate(80 18) scale(.75)"><rect width="32" height="32" rx="7.2" fill="#0c5c59"/><rect x="8" y="8" width="16" height="4.5" rx="1.5" fill="#f7f2e7"/><rect x="8" y="13.75" width="16" height="4.5" rx="1.5" fill="#e2ded2"/><rect x="8.5" y="19.5" width="15" height="4.5" rx="1.5" fill="#a7b6ad"/><line x1="9.5" y1="7" x2="22.5" y2="25" stroke="#f37550" stroke-width="2.2" stroke-linecap="round"/></g><text x="203" y="35.5" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="16" font-weight="500" fill="#111">reddit.com</text><circle cx="357" cy="30" r="22" fill="#fff"/><rect x="129.5" y="72" width="134" height="5" rx="2.5"/></svg>
+    </div></div></div>
+  </div>
+</section>
+
+<section class="price" id="price" aria-labelledby="price-title">
+  <div class="section wrap">
+    <p class="folio"><span>05 / 07</span><span>Price</span></p>
+    <div class="grid">
+      <h2 class="price-big reveal" id="price-title"><span>$3.99</span><span>once.</span></h2>
+      <div class="price-side reveal">
+        <p class="price-lead">No subscription. No account to make.</p>
+        <ol class="price-list">
+          <li><span>01</span>Every switch on every site</li>
+          <li><span>02</span>iPhone, iPad and Mac</li>
+          <li><span>03</span>Site fixes without app updates</li>
+        </ol>
+        <a class="btn btn--paper" href="#price" data-appstore>Get Mutefeed on the App Store <i aria-hidden="true">↗</i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" aria-labelledby="privacy-title">
+  <p class="folio"><span>06 / 07</span><span>Privacy</span></p>
+  <div class="privacy-grid">
+    <div class="privacy-copy reveal">
+      <h2 class="h2" id="privacy-title">Stays on your device.</h2>
+      <p class="lede">No account, no tracking, no analytics. Your switches are saved on your device, and the hiding happens right there on the page.</p>
+    </div>
+    <div class="rules reveal">
+      <h3>One download, every 6&nbsp;hours.</h3>
+      <ol class="ruler" aria-hidden="true">
+        <li style="--p:0"><span>0 h</span></li>
+        <li style="--p:.25"><span>6 h</span></li>
+        <li style="--p:.5"><span>12 h</span></li>
+        <li style="--p:.75"><span>18 h</span></li>
+        <li style="--p:1"><span>24 h</span></li>
+      </ol>
+      <p class="lede">Mutefeed fetches its own rules file from this site. Sites change their layouts often, and this is how fixes reach you without an app update. Everyone gets the same file.</p>
+      <p class="links"><a href="rules.json">See the rules file</a><a href="privacy.html">Privacy policy</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section setup wrap" aria-labelledby="setup-title">
+  <p class="folio"><span>07 / 07</span><span>Setup</span></p>
+  <div class="setup-grid">
+    <div class="setup-copy reveal">
+      <h2 class="h2" id="setup-title">Made for Safari.</h2>
+      <p class="lede">Mutefeed works on the sites you open in Safari. Apple keeps apps separate, so the YouTube and Instagram apps stay as they are. Open the sites in Safari for the clean version.</p>
+    </div>
+    <div class="steps reveal">
+      <div>
+        <h3>iPhone and iPad</h3>
+        <ol>
+          <li><span>01</span>Open Settings &gt; Apps &gt; Safari &gt; Extensions.</li>
+          <li><span>02</span>Turn on Mutefeed and allow it on the sites you use.</li>
+          <li><span>03</span>Open youtube.com in Safari, tap the Mutefeed icon and pick what to hide.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Mac</h3>
+        <ol>
+          <li><span>01</span>Open the Mutefeed app once.</li>
+          <li><span>02</span>In Safari, choose Settings &gt; Extensions and tick Mutefeed.</li>
+          <li><span>03</span>Open youtube.com, click the Mutefeed icon and pick what to hide.</li>
+        </ol>
+      </div>
+      <p class="links"><a href="support.html">More help on the Support page</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="close wrap" aria-labelledby="close-title">
+  <img class="reveal" src="assets/img/icon.webp" width="192" height="192" loading="lazy" decoding="async" alt="">
+  <div class="close-grid">
+    <h2 class="display reveal" id="close-title">Choose what stays quiet.</h2>
+    <div class="cta reveal">
+      <a class="btn" href="#price" data-appstore>Get Mutefeed <small>$3.99</small> <i aria-hidden="true">↗</i></a>
+      <p class="mono">iPhone · iPad · Mac</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot wrap">
+  <span>© 2026 Osman Emre Gundogdu</span>
+  <nav aria-label="Legal"><a href="privacy.html">Privacy</a><a href="support.html">Support</a></nav>
+</footer>
+
+<script>
+(() => {
+  document.querySelectorAll('[data-appstore]').forEach((a) => { a.href = APP_STORE_URL; });
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hero: before -> coral marks on the Shorts -> switch flips -> the real "after" capture.
+  const demo = document.querySelector('.demo');
+  const sw = demo.querySelector('[role=switch]');
+  const set = (s) => { demo.dataset.state = s; sw.setAttribute('aria-checked', String(s === 'after')); };
+  let timers = [];
+  sw.addEventListener('click', () => { timers.forEach(clearTimeout); set(demo.dataset.state === 'after' ? 'marked' : 'after'); });
+  if (!calm) {
+    set('before');
+    const ready = Promise.all([...demo.querySelectorAll('.pg img')].map((i) => i.decode().catch(() => {})));
+    new IntersectionObserver((es, o) => {
+      if (!es[0].isIntersecting) return;
+      o.disconnect();
+      ready.then(() => {
+        if (demo.dataset.state !== 'before') return;
+        timers = [setTimeout(() => set('marked'), 700), setTimeout(() => set('after'), 2700)];
+      });
+    }, { threshold: 0.6 }).observe(demo);
+  }
+
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -12% 0px' });
+  document.querySelectorAll('.reveal, .ledger, .ruler, .section .folio').forEach((el) => io.observe(el));
+
+  document.querySelectorAll('.compare input').forEach((r) => r.addEventListener('input', () => {
+    const c = r.closest('.compare');
+    c.style.animation = 'none';
+    c.style.setProperty('--v', r.value / 100);
+  }));
+})();
+</script>
+</body>
+</html>
